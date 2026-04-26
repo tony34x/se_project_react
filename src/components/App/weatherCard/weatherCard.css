@@ -1,0 +1,37 @@
+.weather-cards {
+  display: grid;
+  gap: 16px;
+}
+
+.weather-card {
+  position: relative;
+  width: 100%;
+  min-height: 80px;
+  overflow: hidden;
+   height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.weather-card__temp {
+  font-size: 36px;
+  line-height: 40px;
+  margin: 0;
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  z-index: 1;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.weather-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position:right top ;
+  width: 100%;
+}
