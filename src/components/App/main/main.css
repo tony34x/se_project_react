@@ -1,0 +1,17 @@
+.card__list {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  gap: 20px;
+}
+
+.card__text {
+  margin: 40px 0 34px;
+  font-size: 20px;
+  font-family: Cabinet Grotesk Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  line-height: 100%;
+}

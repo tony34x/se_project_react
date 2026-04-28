@@ -6,13 +6,19 @@ import snowy from "../../../images/Snow.png";
 import stormy from "../../../images/Storm.png";
 import foggy from "../../../images/Fog.png";
 
+  // later use//
+// import night_Cloudy from "../../../images/night_cloudy.png";
+
 const weatherCards = [
   { id: "sunny", temp: "75", image: sunny, alt: "sunny" },
-  { id: "cloudy", temp: "72", image: cloudy, alt: "cloudy" },
-  { id: "rainy", temp: "68", image: rainy, alt: "rainy" },
-  { id: "snowy", temp: "30", image: snowy, alt: "snowy" },
-  { id: "stormy", temp: "64", image: stormy, alt: "stormy" },
-  { id: "foggy", temp: "58", image: foggy, alt: "foggy" },
+  // { id: "cloudy", temp: "72", image: cloudy, alt: "cloudy" },
+  // { id: "rainy", temp: "68", image: rainy, alt: "rainy" },
+  // { id: "snowy", temp: "30", image: snowy, alt: "snowy" },
+  // { id: "stormy", temp: "64", image: stormy, alt: "stormy" },
+  // { id: "foggy", temp: "58", image: foggy, alt: "foggy" },
+
+  // later use//
+  // { id: "night_cloudy" , temp: "30", image: night_Cloudy, alt: "night_cloudy" },
 ];
 
 function WeatherCard() {
