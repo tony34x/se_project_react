@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ModalwithForm from "./ModalwithForm/ModalwithForm";
 import "./App.css";
 import Main from "./main/main";
 import Header from "./header/header";
@@ -12,6 +13,7 @@ function App() {
         <Main weatherData={weatherData}/>
         <footer></footer>
       </div>
+      <ModalwithForm />
     </div>
   );
 }
