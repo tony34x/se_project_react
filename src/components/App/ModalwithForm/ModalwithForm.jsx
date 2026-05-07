@@ -5,8 +5,11 @@ function ModalwithForm() {
     <div className="modal">
       <div className="modal__content">
         <h2 className="modal__title">New garment</h2>
-        <button type="button" className="modal__close" aria-label="Close">
-        </button>
+        <button
+          type="button"
+          className="modal__close"
+          aria-label="Close"
+        ></button>
         <form className="modal-form">
           <label htmlFor="name" className="modal__label">
             Name
