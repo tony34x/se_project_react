@@ -10,11 +10,13 @@ function Main({ weatherData }) {
     <main>
       <WeatherCard />
       <section className="cards">
-        <p className="card__text">today is 75 &deg; F /you may want to wear</p>
+        <p className="card__text">
+          Today is 75&deg; F / You may want to wear:
+        </p>
         <ul className="card__list">
           {defaultClothingItems
             .filter((item) => {
-              return item.weather === weatherData.type;
+              return item.weather.toLowerCase() === weatherData.type;
             })
             .map((item) => (
               <ItemCard key={item._id} item={item} />

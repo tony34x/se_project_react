@@ -1,10 +1,5 @@
 import "./weatherCard.css";
 import sunny from "../../../images/sunny.png";
-import cloudy from "../../../images/ cloudy.png";
-import rainy from "../../../images/rain.png";
-import snowy from "../../../images/Snow.png";
-import stormy from "../../../images/Storm.png";
-import foggy from "../../../images/Fog.png";
 
   // later use//
 // import night_Cloudy from "../../../images/night_cloudy.png";
@@ -26,7 +21,7 @@ function WeatherCard() {
     <section className="weather-cards">
       {weatherCards.map((card) => (
         <article className="weather-card" key={card.id}>
-          <p className="weather-card__temp">{card.temp} &deg; F</p>
+          <p className="weather-card__temp">{card.temp}&deg;F</p>
           <img
             src={card.image}
             alt={card.alt}

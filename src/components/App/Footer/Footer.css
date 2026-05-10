@@ -1,0 +1,24 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 84px;
+  padding-bottom: 24px;
+  font-family: Cabinet Grotesk Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000;
+}
+
+.footer__credit,
+.footer__year {
+  margin: 0;
+}
+
+@media screen and (max-width: 620px) {
+  .footer {
+    margin-top: 48px;
+    flex-direction: column;
+    gap: 8px;
+  }
+}

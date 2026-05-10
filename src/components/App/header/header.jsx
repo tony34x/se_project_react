@@ -2,7 +2,7 @@ import "./header.css";
 import avatar from "../../../images/Avatar.svg";
 import logo from "../../../images/wtwr° logo.svg";
 
-function Header() {
+function Header({ handleAddButtonClick }) {
   return (
     <header className="header">
       
@@ -12,7 +12,11 @@ function Header() {
           <p className="header__date-and-location">June 15, New York</p>
         </div>
         <div className="header__actions">
-          <button type="button" className="header__add-clothes-button">
+          <button
+            onClick={handleAddButtonClick}
+            type="button"
+            className="header__add-clothes-button"
+          >
             + Add clothes
           </button>
           <div className="header__user-container">
