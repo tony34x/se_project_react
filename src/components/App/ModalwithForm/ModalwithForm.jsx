@@ -1,6 +1,6 @@
 import "./ModalwithForm.css";
 
-function ModalwithForm({ children, buttonText, title, activeModal }) {
+function ModalwithForm({ children, buttonText, title, activeModal, onClose }) {
   return (
     <div
       className={`modal ${
@@ -12,6 +12,8 @@ function ModalwithForm({ children, buttonText, title, activeModal }) {
         <button
           type="button"
           className="modal__close"
+          aria-label="Close"
+          onClick={onClose}
         ></button>
         <form className="modal-form">
         {children}
