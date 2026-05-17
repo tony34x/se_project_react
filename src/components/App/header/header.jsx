@@ -3,13 +3,16 @@ import avatar from "../../../images/Avatar.svg";
 import logo from "../../../images/wtwr° logo.svg";
 
 function Header({ handleAddButtonClick }) {
+  const currentDate = new Date().toLocaleString("default", {
+    month: "long",
+    day: "numeric",
+  });
   return (
     <header className="header">
-      
       <div className="header__content">
         <div className="header__brand-section">
           <img className="header__logo" src={logo} alt="WTWR logo" />
-          <p className="header__date-and-location">June 15, New York</p>
+          <p className="header__date-and-location">{currentDate}, New York</p>
         </div>
         <div className="header__actions">
           <button

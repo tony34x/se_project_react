@@ -6,8 +6,8 @@ function ModalwithForm({
   title,
   activeModal,
   onClose,
-  handleAddButtonClick,
-  closeActiveModal,
+  onSubmit,
+  isSubmitDisabled,
 }) {
   return (
     <div
@@ -16,15 +16,18 @@ function ModalwithForm({
       <div className="modal__content">
         <h2 className="modal__title">{title}</h2>
         <button
-          onClick={handleAddButtonClick}
           type="button"
           className="modal__close"
           aria-label="Close"
           onClick={onClose}
         ></button>
-        <form className="modal-form">
+        <form className="modal-form" onSubmit={onSubmit}>
           {children}
-          <button type="submit" className="modal__submit" disabled>
+          <button
+            type="submit"
+            className="modal__submit"
+            disabled={isSubmitDisabled}
+          >
             {buttonText}
           </button>
         </form>

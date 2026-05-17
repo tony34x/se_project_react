@@ -1,22 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalwithForm from "./ModalwithForm/ModalwithForm";
 import "./App.css";
 import Main from "./main/main";
 import Header from "./header/header";
 import Footer from "./Footer/Footer";
-import ItemCard from "../ItemCard/ItemCard";
-import ItemModal from "../ItemCard/ItemCard";
+import ItemModal from "./ItemModal/ItemModal";
+import { defaultClothingItems } from "../../utils/connstants";
 
 function App() {
   const [weatherData] = useState({ type: "hot" });
-  const [activeModal, setActiveModal] = useState("");
-  const [selectedCard, setSelectedcard] = useState();
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [activeModal, setActiveModal] = useState("preview");
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [newGarment, setNewGarment] = useState({
+    name: "",
+    link: "",
+    weather: "hot",
+  });
 
+  const isAddGarmentDisabled =
+    !newGarment.name.trim() || !newGarment.link.trim();
 
-  const handleCardclick = (card) => {
+  const handleCardClick = (card) => {
     setActiveModal("preview");
-    setSelectedcard(card);
-  }
+    setSelectedCard(card);
+  };
 
   const handleAddButtonClick = () => {
     setActiveModal("add-garment");
@@ -24,13 +32,65 @@ function App() {
 
   const closeActiveModal = () => {
     setActiveModal("");
+    setSelectedCard(null);
+    setNewGarment({
+      name: "",
+      link: "",
+      weather: "hot",
+    });
   };
+
+  const handleGarmentInputChange = (evt) => {
+    const { name, value } = evt.target;
+
+    setNewGarment((currentGarment) => ({
+      ...currentGarment,
+      [name]: value,
+    }));
+  };
+
+  const handleAddGarmentSubmit = (evt) => {
+    evt.preventDefault();
+
+    const item = {
+      _id: Date.now(),
+      name: newGarment.name.trim(),
+      weather: newGarment.weather,
+      link: newGarment.link.trim(),
+      isUserAdded: true,
+    };
+
+    setClothingItems([item, ...clothingItems]);
+    closeActiveModal();
+  };
+
+  useEffect(() => {
+    if (!activeModal) {
+      return undefined;
+    }
+
+    const handleEscClose = (evt) => {
+      if (evt.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   return (
     <div className="page">
       <div className="page_content">
         <Header handleAddButtonClick={handleAddButtonClick} />
-        <Main weatherData={weatherData} onAddButtonclick />
+        <Main
+          weatherData={weatherData}
+          clothingItems={clothingItems}
+          onCardClick={handleCardClick}
+        />
         <Footer />
       </div>
       <ModalwithForm
@@ -38,24 +98,31 @@ function App() {
         buttonText="Add garment"
         activeModal={activeModal}
         onClose={closeActiveModal}
-        closeActiveModal={closeActiveModal}
+        onSubmit={handleAddGarmentSubmit}
+        isSubmitDisabled={isAddGarmentDisabled}
       >
         <label htmlFor="name" className="modal__label">
           Name{""}
           <input
             type="text"
+            name="name"
             className="modal__input"
             placeholder="Name"
             id="name"
+            value={newGarment.name}
+            onChange={handleGarmentInputChange}
           />
         </label>
         <label htmlFor="imageurl" className="modal__label">
           Image{""}
           <input
             type="url"
+            name="link"
             className="modal__input"
             placeholder="Image URL"
             id="imageurl"
+            value={newGarment.link}
+            onChange={handleGarmentInputChange}
           />
         </label>
         <fieldset className="modal__radio-button">
@@ -66,8 +133,9 @@ function App() {
               className="modal__radio-input"
               id="hot"
               name="weather"
-              value="Hot"
-              defaultChecked
+              value="hot"
+              checked={newGarment.weather === "hot"}
+              onChange={handleGarmentInputChange}
             />
             Hot
           </label>
@@ -80,7 +148,9 @@ function App() {
               className="modal__radio-input"
               id="warm"
               name="weather"
-              value="Warm"
+              value="warm"
+              checked={newGarment.weather === "warm"}
+              onChange={handleGarmentInputChange}
             />
             Warm
           </label>
@@ -93,13 +163,19 @@ function App() {
               className="modal__radio-input"
               id="cold"
               name="weather"
-              value="Cold"
+              value="cold"
+              checked={newGarment.weather === "cold"}
+              onChange={handleGarmentInputChange}
             />
             Cold
           </label>
         </fieldset>
       </ModalwithForm>
-      <ItemModal activeModal={activeModal} card={selectedCard} />
+      <ItemModal
+        activeModal={activeModal}
+        card={selectedCard}
+        onClose={closeActiveModal}
+      />
     </div>
   );
 }
