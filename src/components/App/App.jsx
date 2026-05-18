@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import ModalwithForm from "./ModalwithForm/ModalwithForm";
 import "./App.css";
+
 import Main from "./main/main";
 import Header from "./header/header";
 import Footer from "./Footer/Footer";
 import ItemModal from "./ItemModal/ItemModal";
 import { defaultClothingItems } from "../../utils/connstants";
+import { coordinates, APIkey } from "../../utils/connstants";
+import { getweather } from "../../utils/weatherApi";
 
 function App() {
   const [weatherData] = useState({ type: "hot" });
@@ -39,6 +42,14 @@ function App() {
       weather: "hot",
     });
   };
+
+  useEffect(() => {
+    getweather(coordinates.latitude, coordinates.longitude, APIkey)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   const handleGarmentInputChange = (evt) => {
     const { name, value } = evt.target;
