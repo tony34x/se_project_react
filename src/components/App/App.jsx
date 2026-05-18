@@ -18,6 +18,7 @@ function App() {
   const [newGarment, setNewGarment] = useState({
     name: "",
     link: "",
+    temp: {F: 999, C: 999},
     weather: "hot",
   });
 
@@ -46,6 +47,7 @@ function App() {
   useEffect(() => {
     getweather(coordinates.latitude, coordinates.longitude, APIkey)
       .then((data) => {
+       filterweatherData(data);
         console.log(data);
       })
       .catch((error) => console.error(error));
