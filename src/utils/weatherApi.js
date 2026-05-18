@@ -20,6 +20,19 @@ export const getweather = (latitude, longitude, APIkey) => {
   });
 };
 
-const filterweatherData = (data) => {
-const
-}
+export const filterweatherData = (data) => {
+  const temperature = Math.round(data.main.temp);
+
+  let type = "hot";
+
+  if (temperature < 66) {
+    type = "cold";
+  } else if (temperature < 86) {
+    type = "warm";
+  }
+
+  return {
+    temperature,
+    type,
+  };
+};

@@ -8,10 +8,10 @@ import Footer from "./Footer/Footer";
 import ItemModal from "./ItemModal/ItemModal";
 import { defaultClothingItems } from "../../utils/connstants";
 import { coordinates, APIkey } from "../../utils/connstants";
-import { getweather } from "../../utils/weatherApi";
+import { filterweatherData, getweather } from "../../utils/weatherApi";
 
 function App() {
-  const [weatherData] = useState({ type: "hot" });
+  const [weatherData, setWeatherData] = useState({ type: "hot" });
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [activeModal, setActiveModal] = useState("preview");
   const [selectedCard, setSelectedCard] = useState(null);
@@ -47,8 +47,7 @@ function App() {
   useEffect(() => {
     getweather(coordinates.latitude, coordinates.longitude, APIkey)
       .then((data) => {
-       filterweatherData(data);
-        console.log(data);
+        setWeatherData(filterweatherData(data));
       })
       .catch((error) => console.error(error));
   }, []);
