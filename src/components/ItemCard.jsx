@@ -1,1 +1,3 @@
-export { default } from "./ItemCard/ItemCard";
+import ItemCard from "./ItemCard/ItemCard";
+
+export default ItemCard;
