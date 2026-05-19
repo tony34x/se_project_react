@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import ModalwithForm from "./ModalwithForm/ModalwithForm";
+import ModalWithForm from "../ModalWithForm";
 import "./App.css";
 
-import Main from "./main/main";
+import Main from "../main";
 import Header from "./header/header";
-import Footer from "./Footer/Footer";
+import Footer from "../Footer";
 import ItemModal from "./ItemModal/ItemModal";
 import { defaultClothingItems } from "../../utils/connstants";
 import { coordinates, APIkey } from "../../utils/connstants";
@@ -105,7 +105,7 @@ function App() {
         />
         <Footer />
       </div>
-      <ModalwithForm
+      <ModalWithForm
         title="New garment"
         buttonText="Add garment"
         activeModal={activeModal}
@@ -182,7 +182,7 @@ function App() {
             Cold
           </label>
         </fieldset>
-      </ModalwithForm>
+      </ModalWithForm>
       <ItemModal
         activeModal={activeModal}
         card={selectedCard}
