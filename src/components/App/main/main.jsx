@@ -1,7 +1,7 @@
 // import "./main.css";
 import WeatherCard from "../weatherCard/weatherCard";
 import "./main.css";
-import ItemCard from "../../ItemCard";
+import ItemCard from "../ItemCard/ItemCard";
 
 function Main({ weatherData, clothingItems, onCardClick }) {
   return (
