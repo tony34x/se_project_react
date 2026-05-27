@@ -10,8 +10,15 @@ import { defaultClothingItems } from "../../utils/connstants";
 import { coordinates, APIkey } from "../../utils/connstants";
 import { filterweatherData, getweather } from "../../utils/weatherApi";
 
+const WEATHER_REFRESH_INTERVAL = 5 * 60 * 1000;
+
 function App() {
-  const [weatherData, setWeatherData] = useState({ type: "hot" });
+  const [weatherData, setWeatherData] = useState({
+    type: "hot",
+    temp: { F: 68 },
+    condition: "clear",
+    isday: true,
+  });
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [activeModal, setActiveModal] = useState("preview");
   const [selectedCard, setSelectedCard] = useState(null);
@@ -45,11 +52,54 @@ function App() {
   };
 
   useEffect(() => {
-    getweather(coordinates.latitude, coordinates.longitude, APIkey)
-      .then((data) => {
-        setWeatherData(filterweatherData(data));
-      })
-      .catch((error) => console.error(error));
+    let activeCoordinates = coordinates;
+    let isMounted = true;
+
+    const updateWeather = ({ latitude, longitude }) => {
+      getweather(latitude, longitude, APIkey)
+        .then((data) => {
+          if (isMounted) {
+            setWeatherData(filterweatherData(data));
+          }
+        })
+        .catch((error) => console.error(error));
+    };
+
+    const startWeatherUpdates = (currentCoordinates) => {
+      activeCoordinates = currentCoordinates;
+      updateWeather(activeCoordinates);
+
+      return setInterval(() => {
+        updateWeather(activeCoordinates);
+      }, WEATHER_REFRESH_INTERVAL);
+    };
+
+    let weatherInterval;
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          if (isMounted) {
+            weatherInterval = startWeatherUpdates({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            });
+          }
+        },
+        () => {
+          if (isMounted) {
+            weatherInterval = startWeatherUpdates(coordinates);
+          }
+        },
+      );
+    } else {
+      weatherInterval = startWeatherUpdates(coordinates);
+    }
+
+    return () => {
+      isMounted = false;
+      clearInterval(weatherInterval);
+    };
   }, []);
 
   const handleGarmentInputChange = (evt) => {

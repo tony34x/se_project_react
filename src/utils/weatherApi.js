@@ -1,12 +1,12 @@
 export const getweather = (latitude, longitude, APIkey) => {
   if (!APIkey) {
     return Promise.reject(
-      "Missing OpenWeather API key. Add VITE_OPENWEATHER_API_KEY to your .env.local file."
+      "Missing OpenWeather API key. Add VITE_OPENWEATHER_API_KEY to your .env.local file.",
     );
   }
 
   return fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`
+    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`,
   ).then((res) => {
     if (res.ok) {
       return res.json();
@@ -15,24 +15,62 @@ export const getweather = (latitude, longitude, APIkey) => {
     return res
       .json()
       .then((error) =>
-        Promise.reject(`Error: ${res.status} - ${error.message}`)
+        Promise.reject(`Error: ${res.status} - ${error.message}`),
       );
   });
+};
+
+const getweatherType = (temperature) => {
+  if (temperature < 66) {
+    return "cold";
+  }
+
+  if (temperature < 86) {
+    return "warm";
+  }
+
+  return "hot";
+};
+
+const getWeatherCondition = (condition) => {
+  const normalizedCondition = condition.toLowerCase();
+
+  if (["drizzle", "rain"].includes(normalizedCondition)) {
+    return "rain";
+  }
+
+  if (normalizedCondition === "thunderstorm") {
+    return "storm";
+  }
+
+  if (normalizedCondition === "snow") {
+    return "snow";
+  }
+
+  if (normalizedCondition === "clouds") {
+    return "cloudy";
+  }
+
+  if (["mist", "smoke", "haze", "dust", "fog", "sand", "ash", "squall", "tornado"].includes(normalizedCondition)) {
+    return "fog";
+  }
+
+  return "clear";
+};
+
+const isDay = (sunrise, sunset) => {
+  const now = Date.now();
+  return sunrise * 1000 < now && now < sunset * 1000;
 };
 
 export const filterweatherData = (data) => {
   const temperature = Math.round(data.main.temp);
 
-  let type = "hot";
-
-  if (temperature < 66) {
-    type = "cold";
-  } else if (temperature < 86) {
-    type = "warm";
-  }
-
   return {
-    temperature,
-    type,
+    city: data.name,
+    temp: { F: temperature },
+    type: getweatherType(temperature),
+    condition: getWeatherCondition(data.weather[0].main),
+    isday: isDay(data.sys.sunrise, data.sys.sunset),
   };
 };

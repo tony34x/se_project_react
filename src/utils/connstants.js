@@ -1,4 +1,79 @@
 // The utils files contain default clothing items
+import cloudy from "../images/ cloudy.png";
+import fog from "../images/Fog.png";
+import nightFog from "../images/night_fog.png";
+import nightRain from "../images/night_rain.png";
+import nightSnow from "../images/night_snow.png";
+import nightStorm from "../images/night__Storm.png";
+import sunny from "../images/sunny.png";
+import nightCloudy from "../images/night_cloudy.png";
+import rain from "../images/rain.png";
+import snow from "../images/Snow.png";
+import storm from "../images/Storm.png";
+
+export const weatheroptions = [
+  {
+    day: true,
+    condition: "clear",
+    url: sunny,
+  },
+  {
+    day: true,
+    condition: "cloudy",
+    url: cloudy,
+  },
+  {
+    day: true,
+    condition: "rain",
+    url: rain,
+  },
+  {
+    day: true,
+    condition: "snow",
+    url: snow,
+  },
+  {
+    day: true,
+    condition: "storm",
+    url: storm,
+  },
+  {
+    day: true,
+    condition: "fog",
+    url: fog,
+  },
+  {
+    day: false,
+    condition: "clear",
+    url: nightCloudy,
+  },
+  {
+    day: false,
+    condition: "cloudy",
+    url: nightCloudy,
+  },
+  {
+    day: false,
+    condition: "rain",
+    url: nightRain,
+  },
+  {
+    day: false,
+    condition: "snow",
+    url: nightSnow,
+  },
+  {
+    day: false,
+    condition: "storm",
+    url: nightStorm,
+  },
+  {
+    day: false,
+    condition: "fog",
+    url: nightFog,
+  },
+];
+
 export const defaultClothingItems = [
   {
     _id: 1,
@@ -115,8 +190,8 @@ export const defaultClothingItems = [
 ];
 
 export const coordinates = {
-  latitude: 40.7128,
-  longitude: -74.006,
+  latitude: 45.03802,
+  longitude: -92.9742,
 };
 
 export const APIkey = "e9f5e92870840194d52a883a789e404e";

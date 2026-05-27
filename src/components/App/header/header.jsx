@@ -12,7 +12,7 @@ function Header({ handleAddButtonClick }) {
       <div className="header__content">
         <div className="header__brand-section">
           <img className="header__logo" src={logo} alt="WTWR logo" />
-          <p className="header__date-and-location">{currentDate}, New York</p>
+          <p className="header__date-and-location">{currentDate}, minnesota </p>
         </div>
         <div className="header__actions">
           <button
