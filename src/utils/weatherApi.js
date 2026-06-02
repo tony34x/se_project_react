@@ -1,12 +1,12 @@
-export const getweather = (latitude, longitude, APIkey) => {
-  if (!APIkey) {
+export const getWeather = (latitude, longitude, apiKey) => {
+  if (!apiKey) {
     return Promise.reject(
       "Missing OpenWeather API key. Add VITE_OPENWEATHER_API_KEY to your .env.local file.",
     );
   }
 
   return fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`,
+    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`,
   ).then((res) => {
     if (res.ok) {
       return res.json();
@@ -20,7 +20,7 @@ export const getweather = (latitude, longitude, APIkey) => {
   });
 };
 
-const getweatherType = (temperature) => {
+const getWeatherType = (temperature) => {
   if (temperature < 66) {
     return "cold";
   }
@@ -51,7 +51,19 @@ const getWeatherCondition = (condition) => {
     return "cloudy";
   }
 
-  if (["mist", "smoke", "haze", "dust", "fog", "sand", "ash", "squall", "tornado"].includes(normalizedCondition)) {
+  if (
+    [
+      "mist",
+      "smoke",
+      "haze",
+      "dust",
+      "fog",
+      "sand",
+      "ash",
+      "squall",
+      "tornado",
+    ].includes(normalizedCondition)
+  ) {
     return "fog";
   }
 
@@ -63,13 +75,13 @@ const isDay = (sunrise, sunset) => {
   return sunrise * 1000 < now && now < sunset * 1000;
 };
 
-export const filterweatherData = (data) => {
+export const filterWeatherData = (data) => {
   const temperature = Math.round(data.main.temp);
 
   return {
     city: data.name,
     temp: { F: temperature },
-    type: getweatherType(temperature),
+    type: getWeatherType(temperature),
     condition: getWeatherCondition(data.weather[0].main),
     isday: isDay(data.sys.sunrise, data.sys.sunset),
   };

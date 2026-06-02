@@ -7,13 +7,12 @@ import Header from "./header/header";
 import Footer from "../Footer";
 import ItemModal from "./ItemModal/ItemModal";
 import { defaultClothingItems } from "../../utils/connstants";
-import { coordinates, APIkey } from "../../utils/connstants";
-import { filterweatherData, getweather } from "../../utils/weatherApi";
-
-const WEATHER_REFRESH_INTERVAL = 5 * 60 * 1000;
+import { coordinates, apiKey } from "../../utils/connstants";
+import { filterWeatherData, getWeather } from "../../utils/weatherApi";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
+    city: "",
     type: "hot",
     temp: { F: 68 },
     condition: "clear",
@@ -25,7 +24,7 @@ function App() {
   const [newGarment, setNewGarment] = useState({
     name: "",
     link: "",
-    temp: {F: 999, C: 999},
+    temp: { F: 999, C: 999 },
     weather: "hot",
   });
 
@@ -52,35 +51,23 @@ function App() {
   };
 
   useEffect(() => {
-    let activeCoordinates = coordinates;
     let isMounted = true;
 
-    const updateWeather = ({ latitude, longitude }) => {
-      getweather(latitude, longitude, APIkey)
+    const fetchWeather = ({ latitude, longitude }) => {
+      getWeather(latitude, longitude, apiKey)
         .then((data) => {
           if (isMounted) {
-            setWeatherData(filterweatherData(data));
+            setWeatherData(filterWeatherData(data));
           }
         })
         .catch((error) => console.error(error));
     };
 
-    const startWeatherUpdates = (currentCoordinates) => {
-      activeCoordinates = currentCoordinates;
-      updateWeather(activeCoordinates);
-
-      return setInterval(() => {
-        updateWeather(activeCoordinates);
-      }, WEATHER_REFRESH_INTERVAL);
-    };
-
-    let weatherInterval;
-
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           if (isMounted) {
-            weatherInterval = startWeatherUpdates({
+            fetchWeather({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
             });
@@ -88,17 +75,16 @@ function App() {
         },
         () => {
           if (isMounted) {
-            weatherInterval = startWeatherUpdates(coordinates);
+            fetchWeather(coordinates);
           }
         },
       );
     } else {
-      weatherInterval = startWeatherUpdates(coordinates);
+      fetchWeather(coordinates);
     }
 
     return () => {
       isMounted = false;
-      clearInterval(weatherInterval);
     };
   }, []);
 
@@ -147,7 +133,10 @@ function App() {
   return (
     <div className="page">
       <div className="page_content">
-        <Header handleAddButtonClick={handleAddButtonClick} />
+        <Header
+          handleAddButtonClick={handleAddButtonClick}
+          city={weatherData.city}
+        />
         <Main
           weatherData={weatherData}
           clothingItems={clothingItems}
@@ -156,9 +145,10 @@ function App() {
         <Footer />
       </div>
       <ModalWithForm
+        name="add-garment"
         title="New garment"
         buttonText="Add garment"
-        activeModal={activeModal}
+        isOpen={activeModal === "add-garment"}
         onClose={closeActiveModal}
         onSubmit={handleAddGarmentSubmit}
         isSubmitDisabled={isAddGarmentDisabled}

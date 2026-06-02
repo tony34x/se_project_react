@@ -1,7 +1,7 @@
 import "./weatherCard.css";
 import { weatheroptions } from "../../../utils/connstants.js";
 
-function WeatherCard({ weatherData }) {
+function WeatherCard({ weatherData, temperature }) {
   const currentWeather = weatherData || {
     temp: { F: 68 },
     condition: "clear",
@@ -19,10 +19,12 @@ function WeatherCard({ weatherData }) {
   return (
     <section className="weather-cards">
       <article className="weather-card">
-        <p className="weather-card__temp">{currentWeather.temp.F}&deg;F</p>
+        <p className="weather-card__temp">
+          {temperature ?? currentWeather.temp.F}&deg;F
+        </p>
         <img
           src={weatheroption.url}
-          alt={currentWeather.condition}
+          alt={`Card showing ${weatheroption.day ? "day" : "night"} ${weatheroption.condition} weather`}
           className="weather-card__image"
         />
       </article>

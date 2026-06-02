@@ -16,8 +16,8 @@
   visibility: visible;
 }
 
-.modal__close {}
-
+.modal__close {
+}
 
 .modal__content {
   background-color: #fff;
@@ -26,7 +26,11 @@
   box-sizing: border-box;
   border-radius: 20px;
   padding: 28px 28px 36px;
-  font-family: Cabinet Grotesk, Arial, Helvetica, sans-serif;
+  font-family:
+    Cabinet Grotesk,
+    Arial,
+    Helvetica,
+    sans-serif;
   color: #000;
 }
 
@@ -158,7 +162,6 @@
   background-color: #0000004d;
   cursor: default;
 }
-
 
 @media screen and (max-width: 560px) {
   .modal {
