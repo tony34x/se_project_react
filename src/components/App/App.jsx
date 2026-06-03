@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import ModalWithForm from "../ModalWithForm";
+import ModalWithForm from "./ModalwithForm/ModalwithForm";
 import "./App.css";
 
-import Main from "../main";
+import Main from "./main/main";
 import Header from "./header/header";
-import Footer from "../Footer";
+import Footer from "./Footer/Footer";
 import ItemModal from "./ItemModal/ItemModal";
 import { defaultClothingItems } from "../../utils/connstants";
 import { coordinates, apiKey } from "../../utils/connstants";

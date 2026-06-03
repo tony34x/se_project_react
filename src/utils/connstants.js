@@ -1,5 +1,5 @@
 // The utils files contain default clothing items
-import cloudy from "../images/ cloudy.png";
+import cloudy from "../images/cloudy.png";
 import fog from "../images/Fog.png";
 import nightFog from "../images/night_fog.png";
 import nightRain from "../images/night_rain.png";

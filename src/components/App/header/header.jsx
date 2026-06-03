@@ -1,6 +1,6 @@
 import "./header.css";
 import avatar from "../../../images/Avatar.svg";
-import logo from "../../../images/wtwr° logo.svg";
+import logo from "../../../images/wtwr-logo.svg";
 
 function Header({ handleAddButtonClick, city }) {
   const currentDate = new Date().toLocaleString("default", {
