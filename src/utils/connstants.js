@@ -10,6 +10,9 @@ import nightCloudy from "../images/night_cloudy.png";
 import rain from "../images/rain.png";
 import snow from "../images/Snow.png";
 import storm from "../images/Storm.png";
+import { StrictMode } from "react";
+
+
 
 export const weatheroptions = [
   {
@@ -38,7 +41,8 @@ export const weatheroptions = [
     url: storm,
   },
   {
-    day: true,
+    day: 
+    true,
     condition: "fog",
     url: fog,
   },

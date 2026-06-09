@@ -1,3 +1,4 @@
+"use strict";
 export const getWeather = (latitude, longitude, apiKey) => {
   if (!apiKey) {
     return Promise.reject(
